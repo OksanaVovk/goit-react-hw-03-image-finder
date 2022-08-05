@@ -7,6 +7,7 @@ export default class App extends Component {
   state = {
     searchWord: '',
     showModal: false,
+    imgModal: null,
   };
 
   toggleModal = () => {
@@ -17,11 +18,17 @@ export default class App extends Component {
     this.setState({ searchWord });
   };
 
-  onImageClick = () => {
-    console.log('click');
+  onImageClick = event => {
+    console.log(event.target);
+    this.setState({
+      imgModal: { alt: event.target.alt, src: event.target.src },
+    });
+
+    this.toggleModal();
   };
 
   render() {
+    console.log(this.state.imgModal);
     return (
       <div>
         <Searchbar onSubmit={this.handleFormSubmit} />
@@ -29,7 +36,7 @@ export default class App extends Component {
           searchWord={this.state.searchWord}
           onClick={this.onImageClick}
         />
-        {this.state.showModal && <Modal />}
+        {this.state.showModal && <Modal imgForModal={this.state.imgModal} />}
       </div>
     );
   }
