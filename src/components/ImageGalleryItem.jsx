@@ -1,1 +1,7 @@
-// const KEY = 27331775 - d4865903e456a7e108fc4ea1d;
+const ImageGalleryItem = ({ id, large, small }) => (
+  <li key={id} className="gallery-item">
+    <img src={large} alt={small} className="gallery-img" />
+  </li>
+);
+
+export default ImageGalleryItem;

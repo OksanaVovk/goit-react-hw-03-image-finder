@@ -6,23 +6,28 @@ export default class Searchbar extends Component {
   };
 
   handleSearchChange = event => {
+    this.setState({ searchWord: event.currentTarget.value.toLowerCase() });
+  };
+
+  handleSubmit = event => {
     event.preventDefault();
-    this.setState({ searchWord: event.currentTrget.value.toLowerCase() });
+    this.props.onSubmit(this.state.searchWord);
+    this.setState({ searchWord: '' });
   };
 
   render() {
     return (
-      <header class="searchbar">
-        <form class="form">
-          <button type="submit" class="button">
-            <span class="button-label">Search</span>
+      <header className="searchbar">
+        <form className="form" onSubmit={this.handleSubmit}>
+          <button type="submit" className="form_button">
+            <span className="button-label">Search</span>
           </button>
 
           <input
-            class="input"
+            className="input"
             type="text"
-            autocomplete="off"
-            autofocus
+            autoComplete="off"
+            autoFocus
             placeholder="Search images and photos"
             value={this.state.searchWord}
             onChange={this.handleSearchChange}
