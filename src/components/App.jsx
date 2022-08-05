@@ -19,7 +19,6 @@ export default class App extends Component {
   };
 
   onImageClick = event => {
-    console.log(event.target);
     this.setState({
       imgModal: { alt: event.target.alt, src: event.target.src },
     });
@@ -31,12 +30,12 @@ export default class App extends Component {
     console.log(this.state.imgModal);
     return (
       <div>
+        {this.state.showModal && <Modal imgForModal={this.state.imgModal} />}
         <Searchbar onSubmit={this.handleFormSubmit} />
         <ImageGallery
           searchWord={this.state.searchWord}
           onClick={this.onImageClick}
         />
-        {this.state.showModal && <Modal imgForModal={this.state.imgModal} />}
       </div>
     );
   }

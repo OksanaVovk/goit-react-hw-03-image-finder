@@ -31,9 +31,9 @@ export default class ImageGallery extends Component {
   render() {
     const { images, status, error } = this.state;
     const { onClick } = this.props;
-    if (status === 'idle') {
-      return <div>Введіть інформацію для пошуку картин.</div>;
-    }
+    // if (status === 'idle') {
+    //   return <div>Введіть інформацію для пошуку картин.</div>;
+    // }
     if (status === 'pending') {
       return <Loader />;
     }
