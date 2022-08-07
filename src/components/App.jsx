@@ -19,22 +19,26 @@ export default class App extends Component {
   };
 
   onImageClick = event => {
+    if (!event.target.classList.contains('gallery-img')) {
+      return;
+    }
     this.setState({
-      imgModal: { alt: event.target.alt, src: event.target.src },
+      imgModal: { large: event.target.alt, small: event.target.src },
     });
 
     this.toggleModal();
   };
 
   render() {
-    console.log(this.state.imgModal);
     return (
-      <div>
-        {this.state.showModal && <Modal imgForModal={this.state.imgModal} />}
+      <div className="app">
+        {this.state.showModal && (
+          <Modal imgForModal={this.state.imgModal} onClose={this.toggleModal} />
+        )}
         <Searchbar onSubmit={this.handleFormSubmit} />
         <ImageGallery
           searchWord={this.state.searchWord}
-          onClick={this.onImageClick}
+          onImgClick={this.onImageClick}
         />
       </div>
     );

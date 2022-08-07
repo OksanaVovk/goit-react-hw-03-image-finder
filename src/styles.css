@@ -29,7 +29,7 @@ img {
 /*
  * Стили компонента App
  */
-.App {
+.app {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 16px;
@@ -72,14 +72,12 @@ img {
 }
 
 .form_button {
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   width: 48px;
   height: 48px;
   border: 0;
-  background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg');
-  background-size: 40%;
-  background-repeat: no-repeat;
-  background-position: center;
   opacity: 0.6;
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
@@ -92,14 +90,10 @@ img {
 
 .button-label {
   position: absolute;
-  width: 1px;
-  height: 1px;
   padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  clip-path: inset(50%);
+  font-size: 30px;
   border: 0;
+  color: black;
 }
 
 .input {
@@ -132,11 +126,13 @@ img {
   list-style: none;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 20px;
 }
 
 /*
  * Стили компонента ImageGalleryItem
  */
+
 .gallery-item {
   border-radius: 2px;
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
@@ -180,7 +176,7 @@ img {
 /*
 * Стили компонента Buton (Load more)
 */
-.Button {
+.button {
   padding: 8px 16px;
   border-radius: 2px;
   background-color: #3f51b5;
@@ -196,12 +192,13 @@ img {
   line-height: 24px;
   font-style: normal;
   font-weight: 500;
-  min-width: 180px;
+  max-width: 180px;
+  height: 100%;
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 }
 
-.Button:hover,
-.Button:focus {
+.button:hover,
+.button:focus {
   background-color: #303f9f;
 }
