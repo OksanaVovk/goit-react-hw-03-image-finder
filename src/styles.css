@@ -30,9 +30,11 @@ img {
  * Стили компонента App
  */
 .app {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   padding-bottom: 24px;
 }
 
@@ -43,6 +45,7 @@ img {
   top: 0;
   left: 0;
   position: sticky;
+  width: 100vw;
   z-index: 1100;
   display: flex;
   justify-content: center;
