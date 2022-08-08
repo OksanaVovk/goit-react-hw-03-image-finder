@@ -16,6 +16,7 @@ export default class Searchbar extends Component {
       return Notify.info('Please enter search data.');
     }
     this.props.onSubmit(this.state.searchWord);
+    // this.setState({ searchWord: '' });
   };
 
   render() {

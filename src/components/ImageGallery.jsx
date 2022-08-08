@@ -1,4 +1,4 @@
-// import fetchImages from 'fetchImages';
+import fetchImages from 'fetchImages';
 import Loader from './Loader';
 import Button from './Button';
 import ImageGalleryItem from './ImageGalleryItem';
@@ -15,24 +15,16 @@ export default class ImageGallery extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    const KEY = `27331775-d4865903e456a7e108fc4ea1d`;
     const prevWord = prevProps.searchWord;
     const nextWord = this.props.searchWord;
     const prevPage = prevState.page;
     const nextPage = this.state.page;
-    const URL = `https://pixabay.com/api/?q=${nextWord}&page=${this.state.page}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`;
     if (prevWord !== nextWord) {
       this.setState({ page: 1, images: null, hits: [] });
     }
     if (prevWord !== nextWord || prevPage !== nextPage) {
       this.setState({ status: 'pending' });
-      fetch(URL)
-        .then(response => {
-          if (response.ok) {
-            return response.json();
-          }
-          return Promise.reject(new Error(`The image ${nextWord} didn't find`));
-        })
+      fetchImages(nextWord, nextPage)
         .then(data =>
           this.setState(prevState => ({
             hits: [...prevState.hits, ...data.hits],
@@ -78,7 +70,7 @@ export default class ImageGallery extends Component {
       } else {
         return (
           <ul className="gallery" onClick={onImgClick}>
-            {images.hits.map(image => (
+            {hits.map(image => (
               <ImageGalleryItem
                 id={image.id}
                 large={image.largeImageURL}
