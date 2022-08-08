@@ -19,9 +19,6 @@ export default class App extends Component {
   };
 
   onImageClick = event => {
-    if (!event.target.classList.contains('gallery-img')) {
-      return;
-    }
     this.setState({
       imgModal: { large: event.target.alt, small: event.target.src },
     });

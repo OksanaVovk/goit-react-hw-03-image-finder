@@ -7,7 +7,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export default class ImageGallery extends Component {
   state = {
-    images: null,
+    totalHits: null,
     hits: [],
     status: 'idle',
     error: null,
@@ -28,7 +28,7 @@ export default class ImageGallery extends Component {
         .then(data =>
           this.setState(prevState => ({
             hits: [...prevState.hits, ...data.hits],
-            images: data,
+            totalHits: data.totalHits,
             status: 'resolved',
           }))
         )
@@ -43,43 +43,30 @@ export default class ImageGallery extends Component {
   };
 
   render() {
-    const { images, status, error, hits } = this.state;
+    const { totalHits, hits, status, error } = this.state;
     const { onImgClick, searchWord } = this.props;
-    if (status === 'pending') {
-      return <Loader />;
+    if (totalHits === 0) {
+      Notify.info(`The image ${searchWord} didn't find`);
     }
-    if (status === 'resolved') {
-      if (images.totalHits === 0) {
-        Notify.info(`The image ${searchWord} didn't find`);
-      }
-      if (images.totalHits > 12 && images.totalHits > hits.length) {
-        return (
-          <>
-            <ul className="gallery" onClick={onImgClick}>
-              {hits.map(image => (
-                <ImageGalleryItem
-                  id={image.id}
-                  large={image.largeImageURL}
-                  small={image.webformatURL}
-                />
-              ))}
-            </ul>
-            <Button loadMoreClick={() => this.onLoadButtonClick()} />
-          </>
-        );
-      } else {
-        return (
-          <ul className="gallery" onClick={onImgClick}>
+    if (hits.length > 0) {
+      return (
+        <>
+          <ul className="gallery">
             {hits.map(image => (
               <ImageGalleryItem
+                onImgCl={onImgClick}
                 id={image.id}
                 large={image.largeImageURL}
                 small={image.webformatURL}
               />
             ))}
           </ul>
-        );
-      }
+          {status === 'pending' && <Loader />}
+          {totalHits > 12 && totalHits > hits.length && (
+            <Button loadMoreClick={() => this.onLoadButtonClick()} />
+          )}
+        </>
+      );
     }
     if (status === 'rejected') {
       Notify.info({ error });
